@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/3.7.0/chart.min.js"></script>
+    <link rel="stylesheet" href="{}">
+    <title>Adding Inquiry</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Admin Panel</h2>
+            <ul>
+                <li><a href="/Admin-Panel/">Dashboard</a></li>
+                <li><a href="/AddInquiry/">Add Inquiry</a></li>
+                <li><a href="/View-Inquiry/">View Inquiries</a></li>
+                <li><a href="/logout/">Logout</a></li>
+            </ul>
+        </aside>
+        <main class="main-content">
+            <header>
+                <h1>Student Inquiry Overview</h1>
+                <div class="notifications">
+                    <span>🔔 2 New Inquiries</span>
+                </div>
+            </header>
+            <section class="cards">
+                <div class="card">
+                    <h3>Total Inquiries</h3>
+                    <p>{{TotalInquiry}}</p>
+                </div>
+                <div class="card">
+                    <h3>Pending Inquiries</h3>
+                    <p>{{pendingInq}}</p>
+                </div>
+                <div class="card">
+                    <h3>Resolved Inquiries</h3>
+                    <p>{{resolvedInq}}</p>
+                </div>
+                <div class="card">
+                    <h3>Recent Inquiries</h3>
+                    <p>{{recentInq}}</p>
+                </div>
+                <div class="card">
+                    <h3>Inquiries Call Today</h3>
+                    <p>{{todayInq}}</p>
+                </div>
+                <div class="card">
+                    <h3>Inquiries Call Tomorrow</h3>
+                    <p>{{Inq}}</p>
+                </div>
+            </section>
+
+
+            <div id="inquiryForm" class="inquiry-form">
+                <h2>Add New Inquiry</h2>
+                <form action="/InquiryGET/" method="get">
+                    {% csrf_token %}
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name" required>
+                    <label for="email">Email:</label>
+                    <input type="email" name="mail" id="email" required>
+                    <label for="date">Inquiry Date:</label>
+                    <input type="date" name="InquiryDate" id="date" required>
+                    <label for="status">Status:</label>
+                    <select id="status" name="status" required>
+                        <option value="pending">Pending</option>
+                        <option value="resolved">Resolved</option>
+                    </select>
+                    <button type="submit">Submit</button>
+                    <button type="button" onclick="toggleForm()">Cancel</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleForm() {
+            const form = document.getElementById('inquiryForm');
+            form.classList.toggle('hidden');
+        }
+    </script>
+</body>
+
+</html>
